@@ -19,7 +19,7 @@
 	{@html state.text}
 </p>
 {#if state.pair}
-     <Countdown dynamic={false} />
+	<Countdown dynamic={false} />
 	<PicturePair selectedPictureIndex={state.selected} pair={state.pair} labels={state.labels} />
 {/if}
 <div>

@@ -9,7 +9,7 @@
 	import GetName from './GetName.svelte';
 	import DownloadButton from './DownloadButton.svelte';
 
-	let tryFullScreen = false;
+	let tryFullScreen = true;
 	let isBrowser = typeof window !== 'undefined';
 
 	let Chunk = null;
@@ -31,7 +31,7 @@
 			name: participantName,
 			when: taskStartTime,
 			responses: responses,
-			actions: actions,
+			actions: actions
 		};
 		localStorage.setItem(key, JSON.stringify(dataToSave));
 	}
@@ -56,7 +56,7 @@
 			taskStartTime = new Date();
 			await goFullScreen();
 			if (tryFullScreen) {
-         			await runChunk(Loading, {});
+				await runChunk(Loading, {});
 			}
 
 			await runChunk(Instructions, {
@@ -103,10 +103,9 @@
 				});
 
 				if (state.selected == null) {
-								responses[index] = null;
-				}
-				else {
-				   responses[index] = state.pair[state.selected];
+					responses[index] = null;
+				} else {
+					responses[index] = state.pair[state.selected];
 				}
 				actions[index] = trialEndHow;
 				saveData();

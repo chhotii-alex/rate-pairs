@@ -8,13 +8,12 @@
 	let buttonResolution = null;
 
 	onMount(() => {
-		let timeoutPromise = makeTimePromise(15);
+		let timeoutPromise = makeTimePromise(15.1);
 		let buttonPromise = new Promise((resolve, reject) => {
 			buttonResolution = resolve;
 		});
 		state.promise = Promise.race([timeoutPromise, buttonPromise]);
 	});
-
 </script>
 
 <p>Choose the picture whose contours match better.</p>
@@ -26,9 +25,10 @@
 	clickable="true"
 />
 <div>
-	<button onclick={() => buttonResolution("click")} enabled={state.selected != null}> Next </button>
+	<button onclick={() => buttonResolution('click')} disabled={state.selected == null}>
+		Next
+	</button>
 </div>
-
 
 <style>
 	p {

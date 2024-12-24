@@ -6,7 +6,9 @@
 	onMount(() => (state.promise = makeTimePromise(0.5)));
 </script>
 
-<h1>+</h1>
+{#if state.visible}
+	<h1>+</h1>
+{/if}
 
 <style>
 	h1 {

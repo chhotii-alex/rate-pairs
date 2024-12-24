@@ -40,12 +40,18 @@
 </div>
 
 <style>
+	img {
+		border: none;
+	}
 	button {
+		padding: 0px;
 		margin: 40px;
+		border-radius: 10px;
 	}
 	button {
 		border-width: 16px;
 		border-color: lightgray;
+		border-style: solid;
 	}
 	button.selected {
 		border-color: black;

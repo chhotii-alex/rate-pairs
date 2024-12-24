@@ -1,1 +1,9 @@
+* get the actual images
+* github
+* report reaction time
+* subject name?
+* adjust layout for Miao's ipad
+* if fixation non-blank, center vertically
+* is countdown timer distracting?
+* look at Rema's implementation
 
