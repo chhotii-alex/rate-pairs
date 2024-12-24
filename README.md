@@ -1,38 +1,29 @@
-# sv
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+# Things to be aware of for using this
 
-## Creating a project
+I did not set up a database. Raters' responses are stored in the browser's local storage wherever this task is run.
+This means that as things stand, you cannot send someone the URL of this task for them to run it on their own machine--
+the data will be on their machine, you can't get it.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Run this on a machine that you control, and download the data file right after someone goes through the quiz. The
+data is in json format and should be pretty obvious (open  an issue if anything about the data isn't obvious).
 
-```bash
-# create a new project in the current directory
-npx sv create
+# How to update the images used
 
-# create a new project in my-app
-npx sv create my-app
-```
+To add more image pairs, check the image files (one image per file, *not* two) into this repo in the static/images/ directory.
 
-## Developing
+Edit `src/routes/data.js` to replace the pairs of file names with pairs of files that you actually want to use.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-```bash
-npm run dev
+# How to get this running
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+* Install `npm` on your computer.
+* `git clone` this repo.
+* `cd` into this repo's root directory on your computer
+* enter the `npm install` command
+* `npm run build`
+* `npm run preview`
+* When you run `npm run preview` it will show you in the terminal window a URL for the task page. Enter that URL in a browser on a device on the local network. Then this should just run in that page...
 
-## Building
+If any of this doesn't work as advertised, please open an Issue and vent me all the details, thanks!
 
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

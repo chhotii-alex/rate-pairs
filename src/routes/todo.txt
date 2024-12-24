@@ -1,5 +1,4 @@
 * get the actual images
-* github
 * report reaction time
 * subject name?
 * adjust layout for Miao's ipad
