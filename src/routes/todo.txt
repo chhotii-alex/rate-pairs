@@ -1,3 +1,1 @@
-* git
-* style layout
-* media queries
+

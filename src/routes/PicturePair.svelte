@@ -1,32 +1,63 @@
 <script>
-	import { onMount } from 'svelte';
-	import { makeTimePromise } from './util.js';
-	export let state;
-
-	let buttonResolution = null;
-
-	onMount(() => {
-		let timeoutPromise = makeTimePromise(5);
-		let buttonPromise = new Promise((resolve, reject) => {
-			buttonResolution = resolve;
-		});
-		state.promise = Promise.race([timeoutPromise, buttonPromise]);
-	});
+	export let selectedPictureIndex = null;
+	export let clickable = false;
+	export let pair;
+	export let labels;
 
 	function didButton(buttonIndex) {
-		if (buttonResolution != null) {
-			state.selectedPicture = state.pair[buttonIndex];
-			buttonResolution(state.pair[buttonIndex]);
+		if (clickable) {
+			selectedPictureIndex = buttonIndex;
+		}
+	}
+
+	function equalNum(i, j) {
+		return parseInt(i) == parseInt(j);
+	}
+
+	function classForIndex(j) {
+		if (equalNum(selectedPictureIndex, j)) {
+			return 'selected';
+		} else {
+			return '';
 		}
 	}
 </script>
 
-<p>
-	Pair {state.index + 1} of {state.totalLength}
-</p>
-{#each [0, 1] as j}
-	<button onclick={() => didButton(j)}>
-		<img src={`images/${state.pair[j]}`} width="300" height="300" />
-	</button>
-{/each}
-<p>Please click on the better one</p>
+<div class="outer">
+	<div class="inner">
+		{#each [0, 1] as j}
+			<div class="button">
+				{#if labels}
+					{labels[j]}
+					<br />
+				{/if}
+				<button onclick={() => didButton(j)} class={classForIndex(j)}>
+					<img src={`images/${pair[j]}`} width="300" height="300" />
+				</button>
+			</div>
+		{/each}
+	</div>
+</div>
+
+<style>
+	button {
+		margin: 40px;
+	}
+	button {
+		border-width: 16px;
+		border-color: lightgray;
+	}
+	button.selected {
+		border-color: black;
+	}
+	div.outer {
+		text-align: center;
+	}
+	div.inner {
+		margin: auto;
+	}
+	div.button {
+		display: inline-block;
+		font-size: 40px;
+	}
+</style>

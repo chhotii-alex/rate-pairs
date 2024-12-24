@@ -1,10 +1,25 @@
 <script>
-	import { makeEternalPromise } from './util.js';
+	import { makeTimePromise } from './util.js';
 	import { onMount } from 'svelte';
 	export let state;
 
-	onMount(() => (state.promise = makeEternalPromise()));
+	onMount(() => (state.promise = makeTimePromise(60)));
 </script>
 
-<h1>Done!</h1>
-Thank you.
+<div>
+	<h1>Done!</h1>
+	<p>Thank you.</p>
+</div>
+
+<style>
+	h1,
+	p {
+		text-align: center;
+	}
+	div {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>

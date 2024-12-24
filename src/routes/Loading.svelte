@@ -3,16 +3,19 @@
 	import { onMount } from 'svelte';
 	export let state;
 
-	onMount(() => (state.promise = makeTimePromise(0.5)));
+	onMount(() => (state.promise = makeTimePromise(10)));
 </script>
 
-<h1>+</h1>
+<div>
+	<h1>Loading...</h1>
+</div>
 
 <style>
-	h1 {
-		margin: auto;
+	h1,
+	p {
 		text-align: center;
-		font-size: 90px;
+	}
+	div {
 		height: 100%;
 		display: flex;
 		align-items: center;
