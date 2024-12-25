@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy, tick } from 'svelte';
 	import { pairs } from './data.js';
-	import { makeTimePromise } from './util.js';
+	import { makeTimePromise, shuffle } from './util.js';
 	import Instructions from './Instructions.svelte';
 	import PicturePairTrial from './PicturePairTrial.svelte';
 	import Fixation from './Fixation.svelte';
@@ -61,6 +61,7 @@
 			responses = [];
 			actions = [];
 			reactionTimes = [];
+                        shuffle(pairs);
 
 			allowDownloadNow = false;
 			taskStartTime = new Date();
