@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 
 	export let dynamic = true;
-
-	let seconds = 15;
+	export let seconds = 15;
 	let timerColor = 'green';
 
 	function updateColor() {
@@ -37,7 +36,7 @@
 </script>
 
 <div style="font-size: 40px; font-weight: bold; color: {timerColor};">
-	{#if seconds >= 0}
+	{#if seconds >= 0 && seconds < 6}
 		{formatTime(seconds)}
 	{/if}
 </div>
@@ -45,5 +44,6 @@
 <style>
 	div {
 		text-align: center;
+		height: 50px;
 	}
 </style>

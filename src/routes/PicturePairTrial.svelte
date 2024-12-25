@@ -10,7 +10,7 @@
 	let firstClickTime = null;
 
 	onMount(() => {
-		let timeoutPromise = makeTimePromise(15.1);
+		let timeoutPromise = makeTimePromise(state.countdownSeconds + 0.1);
 		let buttonPromise = new Promise((resolve, reject) => {
 			buttonResolution = resolve;
 		});
@@ -18,11 +18,11 @@
 		startTime = new Date();
 	});
 
-	$: state.reactionTime = firstClickTime - startTime;
+	$: state.reactionTime = firstClickTime != null ? firstClickTime - startTime : null;
 </script>
 
 <p>Choose the picture whose contours match better.</p>
-<Countdown />
+<Countdown seconds={state.countdownSeconds} />
 <PicturePair
 	bind:selectedPictureIndex={state.selected}
 	pair={state.pair}

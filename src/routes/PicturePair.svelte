@@ -30,7 +30,9 @@
 		{#each [0, 1] as j}
 			<div class="button">
 				{#if labels}
-					{labels[j]}
+					<span>
+						{labels[j]}
+					</span>
 					<br />
 				{/if}
 				<button onclick={() => didButton(j)} class={classForIndex(j)}>
@@ -45,9 +47,12 @@
 	img {
 		border: none;
 	}
+	span {
+		font-size: 20px;
+	}
 	button {
 		padding: 0px;
-		margin: 40px;
+		margin: 5px 40px;
 		border-radius: 10px;
 	}
 	button {

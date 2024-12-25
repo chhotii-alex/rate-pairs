@@ -9,8 +9,11 @@
 	import GetName from './GetName.svelte';
 	import DownloadButton from './DownloadButton.svelte';
 
-	let tryFullScreen = true;
+	let tryFullScreen = false;
 	let isBrowser = typeof window !== 'undefined';
+
+	// parameters
+	let countdownSeconds = 30;
 
 	let Chunk = null;
 	let state = {};
@@ -72,8 +75,8 @@
 			Your job:
 			<strong>
 			choose the picture whose contours match better.
-			</strong><br/><br/>
-			You'll have 15 seconds per pair.<br/><br/>
+			</strong><br/>
+			You'll have ${countdownSeconds} seconds per pair.<br/>
 			For example:`,
 				pair: ['A.JPG', 'B.JPG'],
 				labels: ['Better', 'Worse'],
@@ -106,7 +109,8 @@
 				let trialEndHow = await runChunk(PicturePairTrial, {
 					pair: pairs[index],
 					index: index,
-					selected: null
+					selected: null,
+					countdownSeconds: countdownSeconds
 				});
 
 				if (state.selected == null) {
