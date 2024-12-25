@@ -1,5 +1,8 @@
 * get the actual images
+* setting to control whether to go full-screen
 * put on panix, again
+* save data on server?
+* optimal resolution for images?
 * if fixation non-blank, center vertically
 * look at Rema's implementation
 * parameterize things
