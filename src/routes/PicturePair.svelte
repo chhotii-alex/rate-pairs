@@ -3,10 +3,12 @@
 	export let clickable = false;
 	export let pair;
 	export let labels;
+	export let firstClickTime = null;
 
 	function didButton(buttonIndex) {
 		if (clickable) {
 			selectedPictureIndex = buttonIndex;
+			firstClickTime = new Date();
 		}
 	}
 

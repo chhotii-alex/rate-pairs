@@ -18,8 +18,9 @@
 	// per-task data to save:
 	let participantName = '';
 	let taskStartTime = null;
-	let responses = [];
-	let actions = [];
+	let responses = null;
+	let actions = null;
+	let reactionTimes = null;
 
 	let allowDownloadNow = false;
 	let downloadableData = [];
@@ -31,7 +32,8 @@
 			name: participantName,
 			when: taskStartTime,
 			responses: responses,
-			actions: actions
+			actions: actions,
+			reactionTimes: reactionTimes
 		};
 		localStorage.setItem(key, JSON.stringify(dataToSave));
 	}
@@ -52,6 +54,11 @@
 			allowDownloadNow = true;
 			await runChunk(GetName, { participantName: '' });
 			participantName = state.participantName;
+
+			responses = [];
+			actions = [];
+			reactionTimes = [];
+
 			allowDownloadNow = false;
 			taskStartTime = new Date();
 			await goFullScreen();
@@ -60,7 +67,7 @@
 			}
 
 			await runChunk(Instructions, {
-				text: `You will see 36 pairs of pictures.<br/>
+				text: `You will see ${pairs.length} pairs of pictures.<br/>
 			Each picture shows yellow and blue contour plots.<br/>
 			Your job:
 			<strong>
@@ -108,6 +115,7 @@
 					responses[index] = state.pair[state.selected];
 				}
 				actions[index] = trialEndHow;
+				reactionTimes[index] = state.reactionTime;
 				saveData();
 			}
 			await runChunk(Instructions, {

@@ -6,6 +6,8 @@
 	export let state;
 
 	let buttonResolution = null;
+	let startTime = null;
+	let firstClickTime = null;
 
 	onMount(() => {
 		let timeoutPromise = makeTimePromise(15.1);
@@ -13,7 +15,10 @@
 			buttonResolution = resolve;
 		});
 		state.promise = Promise.race([timeoutPromise, buttonPromise]);
+		startTime = new Date();
 	});
+
+	$: state.reactionTime = firstClickTime - startTime;
 </script>
 
 <p>Choose the picture whose contours match better.</p>
@@ -23,6 +28,7 @@
 	pair={state.pair}
 	labels={null}
 	clickable="true"
+	bind:firstClickTime
 />
 <div>
 	<button onclick={() => buttonResolution('click')} disabled={state.selected == null}>

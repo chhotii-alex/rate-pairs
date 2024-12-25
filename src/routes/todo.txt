@@ -1,8 +1,8 @@
-* get the actual images
-* report reaction time
 * subject name?
 * adjust layout for Miao's ipad
-* if fixation non-blank, center vertically
 * is countdown timer distracting?
+* get the actual images
+* put on panix, again
+* if fixation non-blank, center vertically
 * look at Rema's implementation
-
+* parameterize things
