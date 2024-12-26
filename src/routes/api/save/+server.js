@@ -7,7 +7,7 @@ export async function POST({ request }) {
 	try {
 		const data = await request.json();
 		// make directory for data if needed
-		const dirname = 'raterdata';
+		const dirname = Path.resolve('raterdata');
 		const doesExist = fs.existsSync(dirname);
 		if (!doesExist) {
 			fs.mkdirSync(dirname);

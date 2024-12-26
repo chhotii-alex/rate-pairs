@@ -7,7 +7,6 @@
 	import Fixation from './Fixation.svelte';
 	import Loading from './Loading.svelte';
 	import GetName from './GetName.svelte';
-	import DownloadButton from './DownloadButton.svelte';
 
 	let tryFullScreen = false;
 	let isBrowser = typeof window !== 'undefined';
@@ -27,7 +26,6 @@
 	let reactionTimes = null;
 
 	let allowDownloadNow = false;
-	let downloadableData = [];
 
 	async function saveData() {
 		if (!isBrowser) return;
@@ -76,7 +74,6 @@
 
 	async function runTaskImpl() {
 		while (true) {
-			downloadableData = getResultList();
 			allowDownloadNow = true;
 			await runChunk(GetName, { participantName: '' });
 			participantName = state.participantName;
@@ -163,20 +160,6 @@
 		runTask();
 	});
 
-	function getResultList() {
-		let d = [];
-		if (isBrowser) {
-			for (let i = 0; i < localStorage.length; i++) {
-				let key = localStorage.key(i);
-				if (key.includes('taskdata_')) {
-					let s = localStorage.getItem(key);
-					d.push([key, s]);
-				}
-			}
-		}
-		return d;
-	}
-
 	async function goFullScreen() {
 		if (!tryFullScreen) return;
 		try {
@@ -199,18 +182,7 @@
 {/if}
 
 {#if allowDownloadNow}
-	{#if isBrowser}
-		{#if downloadableData.length > 0}
-			<details>
-				<summary>Data Downloads</summary>
-				{#each downloadableData as record}
-					{record[0]}
-					<DownloadButton data={record[1]} />
-					<br />
-				{/each}
-			</details>
-		{/if}
-	{/if}
+	{#if isBrowser}{/if}
 {/if}
 
 <div id="taskfullscreen">
