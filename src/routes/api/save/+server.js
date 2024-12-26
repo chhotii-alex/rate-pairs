@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit';
 import fs from 'node:fs';
+import Path from 'path';
 import { writeFile } from 'node:fs/promises';
 
 export async function POST({ request }) {
@@ -13,7 +14,9 @@ export async function POST({ request }) {
 		}
 		// relative path
 		const filename = `${dirname}/taskdata_${data.name}.json`;
-		await writeFile(filename, JSON.stringify(data));
+		const resolvedPath = Path.resolve(filename);
+		console.log(resolvedPath);
+		await writeFile(resolvedPath, JSON.stringify(data));
 		return json(true);
 	} catch (e) {
 		console.log(e);
