@@ -12,7 +12,7 @@ export async function POST({ request }) {
 			fs.mkdirSync(dirname);
 		}
 		// relative path
-		const filename = `${dirname}/taskdata_${data.name}.js`;
+		const filename = `${dirname}/taskdata_${data.name}.json`;
 		await writeFile(filename, JSON.stringify(data));
 		return json(true);
 	} catch (e) {
