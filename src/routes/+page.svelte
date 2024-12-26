@@ -11,6 +11,7 @@
 
 	let tryFullScreen = false;
 	let isBrowser = typeof window !== 'undefined';
+	let errorMsg = null;
 
 	// parameters
 	let countdownSeconds = 30;
@@ -28,7 +29,7 @@
 	let allowDownloadNow = false;
 	let downloadableData = [];
 
-	function saveData() {
+	async function saveData() {
 		if (!isBrowser) return;
 		let key = `taskdata_${participantName}`;
 		let dataToSave = {
@@ -38,7 +39,21 @@
 			actions: actions,
 			reactionTimes: reactionTimes
 		};
-		localStorage.setItem(key, JSON.stringify(dataToSave));
+		let s = JSON.stringify(dataToSave);
+		localStorage.setItem(key, s);
+		// also save on server
+		const response = await fetch('/api/save', {
+			method: 'POST',
+			body: s,
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		let success = await response.json();
+		console.log(success);
+		if (!success) {
+			throw new Error('Could not save response data!');
+		}
 	}
 
 	async function runChunk(componentClass, vars) {
@@ -52,6 +67,14 @@
 	}
 
 	async function runTask() {
+		try {
+			await runTaskImpl();
+		} catch (e) {
+			errorMsg = e.message;
+		}
+	}
+
+	async function runTaskImpl() {
 		while (true) {
 			downloadableData = getResultList();
 			allowDownloadNow = true;
@@ -61,7 +84,7 @@
 			responses = [];
 			actions = [];
 			reactionTimes = [];
-                        shuffle(pairs);
+			shuffle(pairs);
 
 			allowDownloadNow = false;
 			taskStartTime = new Date();
@@ -121,7 +144,7 @@
 				}
 				actions[index] = trialEndHow;
 				reactionTimes[index] = state.reactionTime;
-				saveData();
+				await saveData();
 			}
 			await runChunk(Instructions, {
 				text: `<strong>Done!</strong><br/>
@@ -169,6 +192,12 @@
 	}
 </script>
 
+{#if errorMsg}
+	<p class="errorStyle">
+		{errorMsg}
+	</p>
+{/if}
+
 {#if allowDownloadNow}
 	{#if isBrowser}
 		{#if downloadableData.length > 0}
@@ -189,3 +218,11 @@
 		<Chunk {state} />
 	{/if}
 </div>
+
+<style>
+	.errorStyle {
+		color: red;
+		font-style: italic;
+		font-size: 60px;
+	}
+</style>
