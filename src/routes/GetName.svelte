@@ -16,17 +16,13 @@
 
 	function isNameOk(name) {
 		if (!isBrowser) return false;
-		if (!name) {
-			complaint = 'Please enter a name';
+		if (!name || name.length < 1) {
+			complaint = 'Please enter your alias in the input field.';
 			return false;
 		}
 		let key = `taskdata_${name}`;
 		if (key in localStorage) {
-			complaint = 'Record of a participant with this name already exists';
-			return false;
-		}
-		if (name.length < 1) {
-			complaint = 'Please enter a name';
+			complaint = 'Record of a participant with this alias already exists';
 			return false;
 		}
 		complaint = '';
@@ -34,7 +30,7 @@
 	}
 </script>
 
-Enter name of person doing the rating task:
+Pick an alias (don’t use your real name):
 <input type="text" bind:value={state.participantName} />
 <br />
 {#if isNameOk(state.participantName)}
